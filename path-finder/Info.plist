@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Path Finder Uygulaması Kameranıza Ulaşmak İstiyor</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Uygulama Konum Bilgilerinizi Kullanmak İstiyor</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Uygulama Konum Bilgilerinizi Kullanmak İstiyor</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -21,5 +27,13 @@
 			</array>
 		</dict>
 	</dict>
+    
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>googlechromes</string>
+        <string>comgooglemaps</string>
+    </array>
+        
+    
 </dict>
 </plist>
