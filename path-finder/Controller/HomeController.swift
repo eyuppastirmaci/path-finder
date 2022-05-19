@@ -11,6 +11,7 @@ import GoogleMaps
 import CoreLocation
 import SwiftyJSON
 import Alamofire
+import CoreData
 
 class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     @IBOutlet weak var mapView: GMSMapView!
@@ -76,8 +77,22 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             return
         }
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let entity = NSEntityDescription.entity(forEntityName: "DestinationEntity", in: context)
+        let newDestination = NSManagedObject(entity: entity!, insertInto: context)
         
         
+        newDestination.setValue(txtDestinationDescription, forKey: "destination_description")
+        newDestination.setValue(destinationLat, forKey: "latitude")
+        newDestination.setValue(destinationLng, forKey: "longitude")
+        
+        do {
+          try context.save()
+         } catch {
+          print("Error saving")
+        }
     }
     
     
