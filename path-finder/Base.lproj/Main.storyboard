@@ -52,7 +52,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Route History"/>
                                 <connections>
-                                    <action selector="goAddressHistoryPage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jC6-mF-oHh"/>
+                                    <segue destination="4hs-ya-iSv" kind="show" id="CTN-s2-Vnd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -77,13 +77,13 @@
         <!--Address History Controller-->
         <scene sceneID="uKE-18-M3t">
             <objects>
-                <viewController id="4hs-ya-iSv" customClass="AddressHistoryController" sceneMemberID="viewController">
+                <viewController id="4hs-ya-iSv" customClass="AddressHistoryController" customModule="path_finder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bpT-zS-QPv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="GmY-5X-Gvv">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -96,8 +96,9 @@
                             <constraint firstItem="hnK-Bo-38q" firstAttribute="bottom" secondItem="GmY-5X-Gvv" secondAttribute="bottom" id="KaO-Kw-4c0"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="V4Q-dI-DNG"/>
                     <connections>
-                        <outlet property="tvAddressHistory" destination="GmY-5X-Gvv" id="cTP-dh-vQI"/>
+                        <outlet property="tvRouteHistory" destination="GmY-5X-Gvv" id="0d2-MB-K2d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qzK-tM-VIL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

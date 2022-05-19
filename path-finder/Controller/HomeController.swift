@@ -62,10 +62,6 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         captureSession.startRunning()
     }
     
-    @IBAction func goAddressHistoryPage(_ sender: Any) {
-    
-    }
-    
     func scanQRCode() {
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()

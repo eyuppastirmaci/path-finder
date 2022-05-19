@@ -9,7 +9,7 @@ import UIKit
 
 class AddressHistoryController: UIViewController {
 
-    @IBOutlet weak var tvAddressHistory: UITableView!
+    @IBOutlet weak var tvRouteHistory: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
