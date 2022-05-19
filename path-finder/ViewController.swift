@@ -15,7 +15,6 @@ import Alamofire
 class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     @IBOutlet weak var mapView: GMSMapView!
-    @IBOutlet weak var lblReadedAddress: UILabel!
     
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -69,6 +68,10 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
         captureSession.startRunning()
+    }
+    
+    @IBAction func addressHistory(_ sender: Any) {
+    
     }
     
     func getUserCoordinates() {
@@ -180,19 +183,14 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
-            //self.captureSession.stopRunning()
         }
 
             
         dismiss(animated: true)
-            
-        //captureSession = nil
-            
     }
 
     func found(code: String) {
         readedAddress = code
-        lblReadedAddress.text = readedAddress
         
         let dest : Array = readedAddress.components(separatedBy: " ")
         let destLat : Double = Double(dest[0]) ?? 0.0
