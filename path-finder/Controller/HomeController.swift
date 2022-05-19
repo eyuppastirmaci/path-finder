@@ -84,7 +84,7 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let newDestination = NSManagedObject(entity: entity!, insertInto: context)
         
         
-        newDestination.setValue(txtDestinationDescription, forKey: "destination_description")
+        newDestination.setValue(txtDestinationDescription.text, forKey: "destination_description")
         newDestination.setValue(destinationLat, forKey: "latitude")
         newDestination.setValue(destinationLng, forKey: "longitude")
         
