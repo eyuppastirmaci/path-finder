@@ -17,6 +17,8 @@
 		1651D43628355B34002256C6 /* path_finderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1651D43528355B34002256C6 /* path_finderTests.swift */; };
 		1651D44028355B35002256C6 /* path_finderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1651D43F28355B35002256C6 /* path_finderUITests.swift */; };
 		1651D44228355B35002256C6 /* path_finderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1651D44128355B35002256C6 /* path_finderUITestsLaunchTests.swift */; };
+		167050A82836BC6700348181 /* AddressHistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167050A72836BC6700348181 /* AddressHistoryController.swift */; };
+		167050AA2836C17B00348181 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167050A92836C17B00348181 /* Keys.swift */; };
 		684AEF62385D4AB9A10039EE /* Pods_path_finderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BA52DA9FA02E51970C4346 /* Pods_path_finderTests.framework */; };
 		D32B16CAF70082390CBF04BE /* Pods_path_finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CB4EE8494B085B3847EA6C /* Pods_path_finder.framework */; };
 		F093C45213FAF90B2AD9CF76 /* Pods_path_finder_path_finderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6A9C9AE370AAE3F253F770 /* Pods_path_finder_path_finderUITests.framework */; };
@@ -55,6 +57,8 @@
 		1651D43B28355B34002256C6 /* path-finderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "path-finderUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1651D43F28355B35002256C6 /* path_finderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = path_finderUITests.swift; sourceTree = "<group>"; };
 		1651D44128355B35002256C6 /* path_finderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = path_finderUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		167050A72836BC6700348181 /* AddressHistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressHistoryController.swift; sourceTree = "<group>"; };
+		167050A92836C17B00348181 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		216CA7B268BFC7DC3D551C1F /* Pods-path-finder-path-finderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-path-finder-path-finderUITests.release.xcconfig"; path = "Target Support Files/Pods-path-finder-path-finderUITests/Pods-path-finder-path-finderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2E6A9C9AE370AAE3F253F770 /* Pods_path_finder_path_finderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_path_finder_path_finderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CE4ECE7D71169F384387D75 /* Pods-path-finderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-path-finderTests.debug.xcconfig"; path = "Target Support Files/Pods-path-finderTests/Pods-path-finderTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				1651D42928355B34002256C6 /* LaunchScreen.storyboard */,
 				1651D42C28355B34002256C6 /* Info.plist */,
 				1651D42428355B32002256C6 /* path_finder.xcdatamodeld */,
+				167050A72836BC6700348181 /* AddressHistoryController.swift */,
+				167050A92836C17B00348181 /* Keys.swift */,
 			);
 			path = "path-finder";
 			sourceTree = "<group>";
@@ -167,7 +173,6 @@
 				9CE4ECE7D71169F384387D75 /* Pods-path-finderTests.debug.xcconfig */,
 				D7C10999E2F453AB129F3E29 /* Pods-path-finderTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -447,6 +452,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1651D42628355B32002256C6 /* path_finder.xcdatamodeld in Sources */,
+				167050AA2836C17B00348181 /* Keys.swift in Sources */,
+				167050A82836BC6700348181 /* AddressHistoryController.swift in Sources */,
 				1651D42028355B32002256C6 /* ViewController.swift in Sources */,
 				1651D41C28355B32002256C6 /* AppDelegate.swift in Sources */,
 				1651D41E28355B32002256C6 /* SceneDelegate.swift in Sources */,

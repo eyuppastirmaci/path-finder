@@ -20,8 +20,8 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var previewLayer: AVCaptureVideoPreviewLayer!
     var readedAddress: String = ""
     
-    var sourceLat = 40.9832
-    var sourceLng = 28.8536
+    var sourceLat = 0.0
+    var sourceLng = 0.0
     var destinationLat = 0.0
     var destinationLng = 0.0
 
@@ -103,7 +103,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let sourceLocation = "\(sourceLat),\(sourceLng)"
         let destinationLocation = "\(destinationLat),\(destinationLng)"
        
-        var url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(sourceLocation)&destination=\(destinationLocation)&mode=driving&key=AIzaSyCIQxfjqCi37V1URkCj5e4hVfFa8VyeEgI"
+        var url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(sourceLocation)&destination=\(destinationLocation)&mode=driving&key=\(ApplicationKeys.GOOGLE_API_KEY)"
         
         
         AF.request(url).responseJSON { (response) in

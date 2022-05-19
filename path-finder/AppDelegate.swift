@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import GoogleMaps
 
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        GMSServices.provideAPIKey("AIzaSyCIQxfjqCi37V1URkCj5e4hVfFa8VyeEgI")
+        GMSServices.provideAPIKey(ApplicationKeys.GOOGLE_API_KEY)
         
         return true
     }
