@@ -14,6 +14,9 @@ import Alamofire
 
 class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var txtDestinationDescription: UITextField!
+    @IBOutlet weak var btnSaveDestination: UIButton!
+    
     
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -61,6 +64,22 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         captureSession.startRunning()
     }
+    
+    
+    @IBAction func saveDestination(_ sender: Any) {
+        
+        if (txtDestinationDescription.text == nil || txtDestinationDescription.text == "") {
+            let alert = UIAlertController(title: "Destination Not Saved", message: "You must first enter a destination description.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
+        
+        
+    }
+    
     
     func scanQRCode() {
         view.backgroundColor = UIColor.black
@@ -180,8 +199,6 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         captureSession = nil
     }
 
-    
-
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()
         view.layer.sublayers?.removeLast()
@@ -191,6 +208,9 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
+            
+            txtDestinationDescription.isUserInteractionEnabled = true
+            btnSaveDestination.isUserInteractionEnabled = true
         }
 
         dismiss(animated: true)
@@ -204,5 +224,8 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let destLng : Double = Double(dest[1]) ?? 0.0
         
         drawRoute(destinationLatitude: destLat, destinationLongitude: destLng)
+        
+        
+        
     }
 }
