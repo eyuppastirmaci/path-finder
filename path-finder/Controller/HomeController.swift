@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeController.swift
 //  path-finder
 //
 //  Created by Eyüp Pastırmacı on 18.05.2022.
@@ -12,8 +12,7 @@ import CoreLocation
 import SwiftyJSON
 import Alamofire
 
-class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    
+class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     @IBOutlet weak var mapView: GMSMapView!
     
     var captureSession: AVCaptureSession!
@@ -27,15 +26,55 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         getUserCoordinates()
+        scanQRCode()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if (captureSession?.isRunning == false) {
+            captureSession.startRunning()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if (captureSession?.isRunning == true) {
+            captureSession.stopRunning()
+        }
+    }
+    
+    override var prefersStatusBarHidden: Bool { return true }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    @IBAction func addNewAddress(_ sender: Any) {
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.frame = view.layer.bounds
+        previewLayer.videoGravity = .resizeAspectFill
         
+        view.layer.addSublayer(previewLayer)
+        
+        captureSession.startRunning()
+    }
+    
+    @IBAction func goAddressHistoryPage(_ sender: Any) {
+    
+    }
+    
+    func scanQRCode() {
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
 
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
+        
         let videoInput: AVCaptureDeviceInput
-
+        let metadataOutput = AVCaptureMetadataOutput()
+        
         do {
             videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
         } catch {
@@ -49,11 +88,9 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             return
         }
 
-        let metadataOutput = AVCaptureMetadataOutput()
-
         if (captureSession.canAddOutput(metadataOutput)) {
             captureSession.addOutput(metadataOutput)
-
+            
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metadataOutput.metadataObjectTypes = [.qr]
         } else {
@@ -62,64 +99,50 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    @IBAction func newAddress(_ sender: Any) {
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = view.layer.bounds
-        previewLayer.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(previewLayer)
-        captureSession.startRunning()
-    }
-    
-    @IBAction func addressHistory(_ sender: Any) {
-    
-    }
-    
     func getUserCoordinates() {
-        
-        var locManager = CLLocationManager()
-        locManager.requestWhenInUseAuthorization()
+        let locManager = CLLocationManager()
+        let authorizationStatus: CLAuthorizationStatus
         
         var currentLocation : CLLocation!
         
-        if
-           CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-           CLLocationManager.authorizationStatus() ==  .authorizedAlways {
-            
-            currentLocation = locManager.location
-            
-            sourceLat = currentLocation.coordinate.latitude
-            sourceLng = currentLocation.coordinate.longitude
+        locManager.requestWhenInUseAuthorization()
         
+        if #available(iOS 14, *) {
+            authorizationStatus = locManager.authorizationStatus
         } else {
-            return
+            authorizationStatus = CLLocationManager.authorizationStatus()
+        }
+
+        switch authorizationStatus {
+            case .restricted, .denied:
+                return
+            default:
+                 currentLocation = locManager.location
+                 sourceLat = currentLocation.coordinate.latitude
+                 sourceLng = currentLocation.coordinate.longitude
         }
     }
     
     func drawRoute(destinationLatitude: Double, destinationLongitude: Double) {
-        
         destinationLat = destinationLatitude
         destinationLng = destinationLongitude
         
         let sourceLocation = "\(sourceLat),\(sourceLng)"
         let destinationLocation = "\(destinationLat),\(destinationLng)"
        
-        var url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(sourceLocation)&destination=\(destinationLocation)&mode=driving&key=\(ApplicationKeys.GOOGLE_API_KEY)"
-        
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(sourceLocation)&destination=\(destinationLocation)&mode=driving&key=\(ApplicationKeys.GOOGLE_API_KEY)"
         
         AF.request(url).responseJSON { (response) in
-            
             guard let data = response.data else {
-                print(response.error)
+                print(response.error ?? "Google api response not success...")
                 return
             }
             
             do {
-                 
                 let jsonData = try JSON(data: data)
                 let routes = jsonData["routes"].arrayValue
                 
                 for route in routes {
-                    
                     let overview_polyline = route["overview_polyline"].dictionary
                     let points = overview_polyline?["points"]?.string
                     let path = GMSPath.init(fromEncodedPath: points ?? "")
@@ -149,30 +172,19 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         let camera = GMSCameraPosition(target: sourceMarker.position, zoom: 15)
         
-        mapView.animate(to: camera)    }
+        mapView.animate(to: camera)
+    }
     
     func failed() {
         let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
+        
         present(ac, animated: true)
+        
         captureSession = nil
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if (captureSession?.isRunning == false) {
-            captureSession.startRunning()
-        }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if (captureSession?.isRunning == true) {
-            captureSession.stopRunning()
-        }
-    }
+    
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()
@@ -185,7 +197,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             found(code: stringValue)
         }
 
-            
         dismiss(animated: true)
     }
 
@@ -197,16 +208,5 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let destLng : Double = Double(dest[1]) ?? 0.0
         
         drawRoute(destinationLatitude: destLat, destinationLongitude: destLng)
-        
     }
-
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
-    }
-
 }
-

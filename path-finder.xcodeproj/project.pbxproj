@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1651D41C28355B32002256C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1651D41B28355B32002256C6 /* AppDelegate.swift */; };
 		1651D41E28355B32002256C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1651D41D28355B32002256C6 /* SceneDelegate.swift */; };
-		1651D42028355B32002256C6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1651D41F28355B32002256C6 /* ViewController.swift */; };
+		1651D42028355B32002256C6 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1651D41F28355B32002256C6 /* HomeController.swift */; };
 		1651D42328355B32002256C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1651D42128355B32002256C6 /* Main.storyboard */; };
 		1651D42628355B32002256C6 /* path_finder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1651D42428355B32002256C6 /* path_finder.xcdatamodeld */; };
 		1651D42828355B34002256C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1651D42728355B34002256C6 /* Assets.xcassets */; };
@@ -46,7 +46,7 @@
 		1651D41828355B32002256C6 /* path-finder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "path-finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1651D41B28355B32002256C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1651D41D28355B32002256C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1651D41F28355B32002256C6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1651D41F28355B32002256C6 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		1651D42228355B32002256C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1651D42528355B32002256C6 /* path_finder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = path_finder.xcdatamodel; sourceTree = "<group>"; };
 		1651D42728355B34002256C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -122,15 +122,14 @@
 		1651D41A28355B32002256C6 /* path-finder */ = {
 			isa = PBXGroup;
 			children = (
+				16BD62B52836DE5E00E941BB /* Controller */,
 				1651D41B28355B32002256C6 /* AppDelegate.swift */,
 				1651D41D28355B32002256C6 /* SceneDelegate.swift */,
-				1651D41F28355B32002256C6 /* ViewController.swift */,
 				1651D42128355B32002256C6 /* Main.storyboard */,
 				1651D42728355B34002256C6 /* Assets.xcassets */,
 				1651D42928355B34002256C6 /* LaunchScreen.storyboard */,
 				1651D42C28355B34002256C6 /* Info.plist */,
 				1651D42428355B32002256C6 /* path_finder.xcdatamodeld */,
-				167050A72836BC6700348181 /* AddressHistoryController.swift */,
 				167050A92836C17B00348181 /* Keys.swift */,
 			);
 			path = "path-finder";
@@ -151,6 +150,15 @@
 				1651D44128355B35002256C6 /* path_finderUITestsLaunchTests.swift */,
 			);
 			path = "path-finderUITests";
+			sourceTree = "<group>";
+		};
+		16BD62B52836DE5E00E941BB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1651D41F28355B32002256C6 /* HomeController.swift */,
+				167050A72836BC6700348181 /* AddressHistoryController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		3E209D52B19998E82144A953 /* Frameworks */ = {
@@ -454,7 +462,7 @@
 				1651D42628355B32002256C6 /* path_finder.xcdatamodeld in Sources */,
 				167050AA2836C17B00348181 /* Keys.swift in Sources */,
 				167050A82836BC6700348181 /* AddressHistoryController.swift in Sources */,
-				1651D42028355B32002256C6 /* ViewController.swift in Sources */,
+				1651D42028355B32002256C6 /* HomeController.swift in Sources */,
 				1651D41C28355B32002256C6 /* AppDelegate.swift in Sources */,
 				1651D41E28355B32002256C6 /* SceneDelegate.swift in Sources */,
 			);
