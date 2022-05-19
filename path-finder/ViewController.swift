@@ -134,14 +134,14 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         let sourceMarker = GMSMarker()
         sourceMarker.position = CLLocationCoordinate2D(latitude: sourceLat, longitude: sourceLng)
-        sourceMarker.title = "Delhi"
-        sourceMarker.snippet = "The Capital Of India"
+        sourceMarker.title = "Current Location"
+        sourceMarker.snippet = "..."
         sourceMarker.map = self.mapView
         
         let destinationMarker = GMSMarker()
         destinationMarker.position = CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLng)
-        destinationMarker.title = "Gurguram"
-        destinationMarker.snippet = "The hub of industries"
+        destinationMarker.title = "Target Location"
+        destinationMarker.snippet = "..."
         destinationMarker.map = self.mapView
         
         let camera = GMSCameraPosition(target: sourceMarker.position, zoom: 15)
