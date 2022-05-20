@@ -1,5 +1,5 @@
 //
-//  Destination.swift
+//  DestinationModel.swift
 //  path-finder
 //
 //  Created by Eyüp Pastırmacı on 20.05.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Destination {
+class DestinationModel {
     let description: String
     let latitude, longitude: Double
     
