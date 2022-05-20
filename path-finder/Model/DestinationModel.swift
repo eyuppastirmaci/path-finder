@@ -8,10 +8,12 @@
 import Foundation
 
 class DestinationModel {
+    let id: UUID
     let description: String
     let latitude, longitude: Double
     
-    init (description: String, latitude: Double, longitude: Double) {
+    init (id: UUID, description: String, latitude: Double, longitude: Double) {
+        self.id = id
         self.description = description
         self.latitude = latitude
         self.longitude = longitude

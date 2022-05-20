@@ -23,8 +23,8 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     
-    var destinationLat = 0.0
-    var destinationLng = 0.0
+    var destLat: Double = 0.0
+    var destLng: Double = 0.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,9 +114,17 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let entity = NSEntityDescription.entity(forEntityName: "DestinationEntity", in: context)
         let newDestination = NSManagedObject(entity: entity!, insertInto: context)
         
+        
+        newDestination.setValue(UUID(uuidString: UUID().uuidString), forKey: "id")
         newDestination.setValue(txtDestinationDescription.text, forKey: "destination_description")
-        newDestination.setValue(destinationLat, forKey: "latitude")
-        newDestination.setValue(destinationLng, forKey: "longitude")
+        
+        print("==================")
+        print(destLat)
+        print(destLng)
+        print("==================")
+        
+        newDestination.setValue(destLat, forKey: "latitude")
+        newDestination.setValue(destLng, forKey: "longitude")
         
         do {
           try context.save()
@@ -195,8 +203,8 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     func found(code: String) {
         let dest : Array = code.components(separatedBy: " ")
-        let destLat : Double = Double(dest[0]) ?? -91.0
-        let destLng : Double = Double(dest[1]) ?? -181.0
+        destLat = Double(dest[0]) ?? -91.0
+        destLng = Double(dest[1]) ?? -181.0
          
         if (destLat < -90 || destLng < -180 || destLat > 90 || destLng > 90) {
             hideQRScanner()
