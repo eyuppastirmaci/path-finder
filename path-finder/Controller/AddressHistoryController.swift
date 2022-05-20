@@ -7,19 +7,28 @@
 
 import UIKit
 import CoreData
+import AVFoundation
+import GoogleMaps
+import CoreLocation
+import SwiftyJSON
+import Alamofire
 
 class AddressHistoryController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     @IBOutlet weak var tvRouteHistory: UITableView!
-    @IBOutlet weak var mapView: UIView!
+    @IBOutlet weak var mapView: GMSMapView!
     
     var destinationModels = [DestinationModel]()
+    var sourceLat = 0.0
+    var sourceLng = 0.0
+    var destinationLat = 0.0
+    var destinationLng = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tvRouteHistory.dataSource = self
         tvRouteHistory.delegate = self
-        
+
         fetchDestinations()
     }
     
@@ -60,10 +69,12 @@ class AddressHistoryController: UIViewController, UITableViewDataSource, UITable
                             didSelectRowAt indexPath: IndexPath) {
        let selectedLat = destinationModels[indexPath.row].latitude
        let selectedLng = destinationModels[indexPath.row].longitude
-       
-       print(selectedLat)
-       print(selectedLng)
+       Map.drawRoute(destinationLatitude: selectedLat, destinationLongitude: selectedLng, mapView: self.mapView)
     }
     
-    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }

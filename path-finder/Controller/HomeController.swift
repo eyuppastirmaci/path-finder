@@ -7,8 +7,8 @@
 
 import UIKit
 import AVFoundation
-import GoogleMaps
 import CoreLocation
+import GoogleMaps
 import SwiftyJSON
 import Alamofire
 import CoreData
@@ -23,8 +23,6 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     
-    var sourceLat = 0.0
-    var sourceLng = 0.0
     var destinationLat = 0.0
     var destinationLng = 0.0
 
@@ -44,7 +42,8 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         btnSaveDestination.isEnabled = false
         txtDestinationDescription.isEnabled = false
         
-        getUserCoordinates()
+        
+    
         scanQRCode()
     }
     
@@ -173,82 +172,6 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    func getUserCoordinates() {
-        let locManager = CLLocationManager()
-        let authorizationStatus: CLAuthorizationStatus
-        
-        var currentLocation : CLLocation!
-        
-        locManager.requestWhenInUseAuthorization()
-        
-        if #available(iOS 14, *) {
-            authorizationStatus = locManager.authorizationStatus
-        } else {
-            authorizationStatus = CLLocationManager.authorizationStatus()
-        }
-
-        switch authorizationStatus {
-            case .restricted, .denied:
-                return
-            default:
-                 currentLocation = locManager.location
-                 sourceLat = currentLocation.coordinate.latitude
-                 sourceLng = currentLocation.coordinate.longitude
-        }
-    }
-    
-    func drawRoute(destinationLatitude: Double, destinationLongitude: Double) {
-        hideQRScanner()
-        
-        destinationLat = destinationLatitude
-        destinationLng = destinationLongitude
-        
-        let sourceLocation = "\(sourceLat),\(sourceLng)"
-        let destinationLocation = "\(destinationLat),\(destinationLng)"
-       
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(sourceLocation)&destination=\(destinationLocation)&mode=driving&key=\(ApplicationKeys.GOOGLE_API_KEY)"
-        
-        AF.request(url).responseJSON { (response) in
-            guard let data = response.data else {
-                self.showAlert(title: "Response Not Success", message: response.error?.errorDescription ?? "Cannot Connection Google API")
-                return
-            }
-            
-            do {
-                let jsonData = try JSON(data: data)
-                let routes = jsonData["routes"].arrayValue
-                
-                for route in routes {
-                    let overview_polyline = route["overview_polyline"].dictionary
-                    let points = overview_polyline?["points"]?.string
-                    let path = GMSPath.init(fromEncodedPath: points ?? "")
-                    let polyline = GMSPolyline.init(path: path)
-                    polyline.strokeColor = .blue
-                    polyline.strokeWidth = 5
-                    polyline.map = self.mapView
-                }
-                
-            } catch let error {
-                self.showAlert(title: "Couldn't Draw Path", message: error.localizedDescription)
-            }
-        }
-        
-        let sourceMarker = GMSMarker()
-        sourceMarker.position = CLLocationCoordinate2D(latitude: sourceLat, longitude: sourceLng)
-        sourceMarker.title = "Current Location"
-        sourceMarker.snippet = "..."
-        sourceMarker.map = self.mapView
-        
-        let destinationMarker = GMSMarker()
-        destinationMarker.position = CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLng)
-        destinationMarker.title = "Target Location"
-        destinationMarker.snippet = "..."
-        destinationMarker.map = self.mapView
-        
-        let camera = GMSCameraPosition(target: sourceMarker.position, zoom: 15)
-        mapView.animate(to: camera)
-    }
-    
     func failed() {
         let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
@@ -278,16 +201,16 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         if (destLat < -90 || destLng < -180 || destLat > 90 || destLng > 90) {
             hideQRScanner()
             
-            self.showAlert(title: "Cannot found address", message: "Not valit coordinates in the QR code.")
+            self.showAlert(title: "Cannot found address", message: "Unvalid coordinates in the QR code.")
         } else {
-            drawRoute(destinationLatitude: destLat, destinationLongitude: destLng)
+            hideQRScanner()
+            Map.drawRoute(destinationLatitude: destLat, destinationLongitude: destLng, mapView: self.mapView)
         }
     }
     
     func hideQRScanner() {
         txtDestinationDescription.isEnabled = true
         btnSaveDestination.isEnabled = true
-        
         btnCancelFindRoute.layer.isHidden = true
         cameraView.layer.isHidden = true
         dismiss(animated: true)

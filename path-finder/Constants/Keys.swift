@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ApplicationKeys {
+class Keys {
     
     static let GOOGLE_API_KEY = "AIzaSyDXN1IF0ai5sU9lAfBo_e7AlvFZrjOoz34"
     

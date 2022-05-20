@@ -116,7 +116,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="374"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVU-HG-QJp">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVU-HG-QJp" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="458" width="414" height="438"/>
                                 <color key="backgroundColor" systemColor="systemCyanColor"/>
                             </view>
