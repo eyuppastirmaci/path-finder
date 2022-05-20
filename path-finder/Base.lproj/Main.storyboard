@@ -34,20 +34,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wms-6X-YdF" customClass="GMSMapView">
-                                <rect key="frame" x="-23" y="142" width="437" height="686"/>
+                                <rect key="frame" x="0.0" y="142" width="414" height="685"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LX9-wg-3uU">
-                                        <rect key="frame" x="21" y="0.0" width="428" height="686"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LX9-wg-3uU">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="693"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemCyanColor"/>
-                                <constraints>
-                                    <constraint firstItem="LX9-wg-3uU" firstAttribute="leading" secondItem="Wms-6X-YdF" secondAttribute="leading" constant="21" id="2gn-hx-Wqj"/>
-                                    <constraint firstItem="LX9-wg-3uU" firstAttribute="top" secondItem="Wms-6X-YdF" secondAttribute="top" id="50d-6F-ST0"/>
-                                    <constraint firstAttribute="bottom" secondItem="LX9-wg-3uU" secondAttribute="bottom" id="MyL-Z4-6FX"/>
-                                    <constraint firstAttribute="trailing" secondItem="LX9-wg-3uU" secondAttribute="trailing" constant="-12" id="OQH-uP-YdQ"/>
-                                </constraints>
                             </view>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Destination Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hmR-8O-Fsm">
                                 <rect key="frame" x="20" y="100" width="259" height="34"/>
@@ -82,17 +77,17 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="grQ-h2-ltb" firstAttribute="leading" secondItem="hmR-8O-Fsm" secondAttribute="trailing" constant="15" id="7Nf-J3-uSF"/>
-                            <constraint firstAttribute="trailing" secondItem="Wms-6X-YdF" secondAttribute="trailing" id="GHn-GA-hhq"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wms-6X-YdF" secondAttribute="bottom" constant="34" id="Jwa-kf-jQI"/>
+                            <constraint firstItem="Wms-6X-YdF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="L2u-UB-zVE"/>
                             <constraint firstItem="grQ-h2-ltb" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="PAZ-B3-5tG"/>
                             <constraint firstItem="hmR-8O-Fsm" firstAttribute="top" secondItem="grQ-h2-ltb" secondAttribute="top" id="PmH-JD-smU"/>
                             <constraint firstItem="hmR-8O-Fsm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="WeR-RQ-iFM"/>
+                            <constraint firstItem="Wms-6X-YdF" firstAttribute="top" secondItem="hmR-8O-Fsm" secondAttribute="bottom" constant="8" id="WyF-Wt-sxK"/>
                             <constraint firstItem="hmR-8O-Fsm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="eEf-iS-gNj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tKM-2p-Oxu" secondAttribute="trailing" constant="-22" id="ibB-8T-MEO"/>
                             <constraint firstItem="tKM-2p-Oxu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="q3d-XU-iy8"/>
-                            <constraint firstItem="Wms-6X-YdF" firstAttribute="top" secondItem="hmR-8O-Fsm" secondAttribute="bottom" constant="8" symbolic="YES" id="qPA-ga-dFV"/>
                             <constraint firstAttribute="bottom" secondItem="tKM-2p-Oxu" secondAttribute="bottom" id="sbz-n8-fwk"/>
-                            <constraint firstItem="Wms-6X-YdF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-43" id="wIt-NO-bq3"/>
+                            <constraint firstItem="Wms-6X-YdF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="vhA-HT-DED"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wms-6X-YdF" secondAttribute="bottom" constant="35" id="zv8-z2-FUJ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4na-2X-7OW"/>
