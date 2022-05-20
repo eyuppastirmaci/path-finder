@@ -41,12 +41,16 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         cameraView.isHidden = true
         btnCancelFindRoute.isHidden = true
+        btnSaveDestination.isEnabled = false
+        txtDestinationDescription.isEnabled = false
         
         getUserCoordinates()
         scanQRCode()
     }
     
     @objc func addTapped() {
+        navigationItem.leftBarButtonItem?.isEnabled = false
+        
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = cameraView.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
@@ -117,6 +121,10 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         do {
           try context.save()
+            self.showAlert(title: "Route Bookmarked", message: "\(txtDestinationDescription.text ?? "") successfully bookmarked!")
+            txtDestinationDescription.text = ""
+            txtDestinationDescription.isEnabled = false
+            btnSaveDestination.isEnabled = false
          } catch {
           print("Error saving")
         }
@@ -128,6 +136,7 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         dismiss(animated: true)
         btnCancelFindRoute.isHidden = true
         cameraView.isHidden = true
+        navigationItem.leftBarButtonItem?.isEnabled = true
     }
     
     
@@ -257,6 +266,8 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
         }
+        
+        navigationItem.leftBarButtonItem?.isEnabled = true
     }
 
     func found(code: String) {
@@ -267,8 +278,6 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         if (destLat < -90 || destLng < -180 || destLat > 90 || destLng > 90) {
             hideQRScanner()
             
-            txtDestinationDescription.isUserInteractionEnabled = false
-            btnSaveDestination.isUserInteractionEnabled = false
             self.showAlert(title: "Cannot found address", message: "Not valit coordinates in the QR code.")
         } else {
             drawRoute(destinationLatitude: destLat, destinationLongitude: destLng)
@@ -276,8 +285,9 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     func hideQRScanner() {
-        txtDestinationDescription.isUserInteractionEnabled = true
-        btnSaveDestination.isUserInteractionEnabled = true
+        txtDestinationDescription.isEnabled = true
+        btnSaveDestination.isEnabled = true
+        
         btnCancelFindRoute.layer.isHidden = true
         cameraView.layer.isHidden = true
         dismiss(animated: true)
