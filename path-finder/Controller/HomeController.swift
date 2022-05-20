@@ -30,8 +30,27 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = "Path Finder"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(historyTapped))
+        
         getUserCoordinates()
         scanQRCode()
+    }
+    
+    @objc func addTapped() {
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.frame = view.layer.bounds
+        previewLayer.videoGravity = .resizeAspectFill
+        
+        view.layer.addSublayer(previewLayer)
+        
+        captureSession.startRunning()
+    }
+    
+    @objc func historyTapped() {
+        self.performSegue(withIdentifier: "goHistory", sender: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
