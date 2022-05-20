@@ -77,8 +77,45 @@ class AddressHistoryController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
+            let selectedId = destinationModels[indexPath.row].id
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "DestinationEntity")
+            fetchRequest.predicate = NSPredicate(format: "id = %@", selectedId as CVarArg)
+            
+            fetchRequest.returnsObjectsAsFaults = false
+            
+            do {
+                let results = try context.fetch(fetchRequest)
+                
+                if results.count > 0 {
+                    for result in results as! [NSManagedObject] {
+                        if let id = result.value(forKey: "id") as? UUID {
+                            if id == destinationModels[indexPath.row].id {
+                                context.delete(result)
+                                self.tvRouteHistory.reloadData()
+                                
+                                do {
+                                    try context.save()
+                                } catch {
+                                    print("error")
+                                }
+                                break
+                            }
+                        }
+                    }
+                }
+                
+            } catch {
+                print("error")
+            }
+            
             self.destinationModels.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
         }
     }
     
