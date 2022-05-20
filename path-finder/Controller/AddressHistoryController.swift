@@ -26,9 +26,28 @@ class AddressHistoryController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "Bookmarks"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(clearDestinations))
+        
         tvRouteHistory.dataSource = self
         tvRouteHistory.delegate = self
         fetchDestinations()
+    }
+    
+    @objc func clearDestinations() {
+        let refreshAlert = UIAlertController(title: "Delete All Destinations", message: "All data will be lost.", preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: "Delete All", style: .destructive, handler: { (action: UIAlertAction!) in
+                self.deleteAllCoreData()
+        }))
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    func deleteAllCoreData() {
+        clearCoreData()
+        fetchDestinations()
+        tvRouteHistory.reloadData()
     }
     
     func fetchDestinations() {
@@ -50,7 +69,6 @@ class AddressHistoryController: UIViewController, UITableViewDataSource, UITable
                 let currentDescriptionModel = DestinationModel(id: id, description: destinationDescription, latitude: latitude, longitude: longitude)
                 
                 destinationModels.append(currentDescriptionModel)
-                
             }
         } catch {
             print("Failed")
@@ -115,23 +133,22 @@ class AddressHistoryController: UIViewController, UITableViewDataSource, UITable
             
             self.destinationModels.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            
         }
     }
     
-    func removeCoreData() {
+    func clearCoreData() {
         guard let appDelegate =
           UIApplication.shared.delegate as? AppDelegate else {
             return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "DestinationEntity") // Find this name in your .xcdatamodeld file
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "DestinationEntity")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {
             try managedContext.execute(deleteRequest)
+            destinationModels.removeAll()
         } catch let error as NSError {
-            // TODO: handle the error
             print(error.localizedDescription)
         }
     }

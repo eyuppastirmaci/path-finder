@@ -42,8 +42,6 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         btnSaveDestination.isEnabled = false
         txtDestinationDescription.isEnabled = false
         
-        
-    
         scanQRCode()
     }
     
@@ -117,11 +115,6 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         newDestination.setValue(UUID(uuidString: UUID().uuidString), forKey: "id")
         newDestination.setValue(txtDestinationDescription.text, forKey: "destination_description")
-        
-        print("==================")
-        print(destLat)
-        print(destLng)
-        print("==================")
         
         newDestination.setValue(destLat, forKey: "latitude")
         newDestination.setValue(destLng, forKey: "longitude")
