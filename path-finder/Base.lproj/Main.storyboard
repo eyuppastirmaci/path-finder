@@ -34,8 +34,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wms-6X-YdF" customClass="GMSMapView">
-                                <rect key="frame" x="-23" y="142" width="437" height="803"/>
+                                <rect key="frame" x="-23" y="142" width="437" height="686"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LX9-wg-3uU">
+                                        <rect key="frame" x="21" y="0.0" width="428" height="686"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemCyanColor"/>
+                                <constraints>
+                                    <constraint firstItem="LX9-wg-3uU" firstAttribute="leading" secondItem="Wms-6X-YdF" secondAttribute="leading" constant="21" id="2gn-hx-Wqj"/>
+                                    <constraint firstItem="LX9-wg-3uU" firstAttribute="top" secondItem="Wms-6X-YdF" secondAttribute="top" id="50d-6F-ST0"/>
+                                    <constraint firstAttribute="bottom" secondItem="LX9-wg-3uU" secondAttribute="bottom" id="MyL-Z4-6FX"/>
+                                    <constraint firstAttribute="trailing" secondItem="LX9-wg-3uU" secondAttribute="trailing" constant="-12" id="OQH-uP-YdQ"/>
+                                </constraints>
                             </view>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Destination Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hmR-8O-Fsm">
                                 <rect key="frame" x="20" y="100" width="259" height="34"/>
@@ -43,9 +55,9 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grQ-h2-ltb">
-                                <rect key="frame" x="294" y="100" width="100" height="34"/>
+                                <rect key="frame" x="294" y="100" width="100" height="31"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="xCS-4I-EWU"/>
+                                    <constraint firstAttribute="width" constant="100" id="fhN-1f-esv"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Save Route"/>
@@ -53,25 +65,41 @@
                                     <action selector="saveDestination:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dZ4-fC-zYR"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKM-2p-Oxu">
+                                <rect key="frame" x="0.0" y="824" width="416" height="72"/>
+                                <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="KeD-gl-p07"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelFindRoute:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yjS-L6-6zz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Wms-6X-YdF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3sa-qw-ZMW"/>
-                            <constraint firstItem="Wms-6X-YdF" firstAttribute="top" secondItem="hmR-8O-Fsm" secondAttribute="bottom" constant="8" id="DOL-N6-x7c"/>
-                            <constraint firstItem="hmR-8O-Fsm" firstAttribute="bottom" secondItem="grQ-h2-ltb" secondAttribute="bottom" id="MRb-en-IlT"/>
-                            <constraint firstItem="grQ-h2-ltb" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Scg-pe-ga8"/>
-                            <constraint firstItem="hmR-8O-Fsm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Uef-ga-rsS"/>
-                            <constraint firstItem="Wms-6X-YdF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-43" id="aUB-fu-2BP"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="Wms-6X-YdF" secondAttribute="bottom" constant="-83" id="cPw-5f-1FZ"/>
-                            <constraint firstItem="hmR-8O-Fsm" firstAttribute="top" secondItem="grQ-h2-ltb" secondAttribute="top" id="o7S-Ta-qx0"/>
-                            <constraint firstItem="hmR-8O-Fsm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="q66-jV-Em7"/>
-                            <constraint firstItem="grQ-h2-ltb" firstAttribute="leading" secondItem="hmR-8O-Fsm" secondAttribute="trailing" constant="15" id="w3H-im-TE7"/>
+                            <constraint firstItem="grQ-h2-ltb" firstAttribute="leading" secondItem="hmR-8O-Fsm" secondAttribute="trailing" constant="15" id="7Nf-J3-uSF"/>
+                            <constraint firstAttribute="trailing" secondItem="Wms-6X-YdF" secondAttribute="trailing" id="GHn-GA-hhq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wms-6X-YdF" secondAttribute="bottom" constant="34" id="Jwa-kf-jQI"/>
+                            <constraint firstItem="grQ-h2-ltb" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="PAZ-B3-5tG"/>
+                            <constraint firstItem="hmR-8O-Fsm" firstAttribute="top" secondItem="grQ-h2-ltb" secondAttribute="top" id="PmH-JD-smU"/>
+                            <constraint firstItem="hmR-8O-Fsm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="WeR-RQ-iFM"/>
+                            <constraint firstItem="hmR-8O-Fsm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="eEf-iS-gNj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tKM-2p-Oxu" secondAttribute="trailing" constant="-22" id="ibB-8T-MEO"/>
+                            <constraint firstItem="tKM-2p-Oxu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="q3d-XU-iy8"/>
+                            <constraint firstItem="Wms-6X-YdF" firstAttribute="top" secondItem="hmR-8O-Fsm" secondAttribute="bottom" constant="8" symbolic="YES" id="qPA-ga-dFV"/>
+                            <constraint firstAttribute="bottom" secondItem="tKM-2p-Oxu" secondAttribute="bottom" id="sbz-n8-fwk"/>
+                            <constraint firstItem="Wms-6X-YdF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-43" id="wIt-NO-bq3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4na-2X-7OW"/>
                     <connections>
+                        <outlet property="btnCancelFindRoute" destination="tKM-2p-Oxu" id="1yn-0a-X2I"/>
                         <outlet property="btnSaveDestination" destination="grQ-h2-ltb" id="bV7-Vg-AW0"/>
+                        <outlet property="cameraView" destination="LX9-wg-3uU" id="jz7-FC-LbA"/>
                         <outlet property="mapView" destination="Wms-6X-YdF" id="DFj-a0-2YB"/>
                         <outlet property="txtDestinationDescription" destination="hmR-8O-Fsm" id="8sI-Ag-QD9"/>
                         <segue destination="4hs-ya-iSv" kind="show" identifier="goHistory" id="7MP-vC-CoM"/>
@@ -119,6 +147,9 @@
         </systemColor>
         <systemColor name="systemCyanColor">
             <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

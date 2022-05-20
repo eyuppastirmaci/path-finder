@@ -17,11 +17,11 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var txtDestinationDescription: UITextField!
     @IBOutlet weak var btnSaveDestination: UIButton!
-    
+    @IBOutlet weak var btnCancelFindRoute: UIButton!
+    @IBOutlet weak var cameraView: UIView!
     
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    var readedAddress: String = ""
     
     var sourceLat = 0.0
     var sourceLng = 0.0
@@ -35,16 +35,26 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(historyTapped))
         
+        cameraView.layer.zPosition = 1
+        btnCancelFindRoute.layer.zPosition = 1
+        mapView.layer.zPosition = 2
+        
+        cameraView.isHidden = true
+        btnCancelFindRoute.isHidden = true
+        
         getUserCoordinates()
         scanQRCode()
     }
     
     @objc func addTapped() {
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = view.layer.bounds
+        previewLayer.frame = cameraView.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
         
-        view.layer.addSublayer(previewLayer)
+        cameraView.isHidden = false
+        btnCancelFindRoute.isHidden = false
+        
+        cameraView.layer.addSublayer(previewLayer)
         
         captureSession.startRunning()
     }
@@ -77,17 +87,19 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     @IBAction func addNewAddress(_ sender: Any) {
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = view.layer.bounds
+        previewLayer.frame = cameraView.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
         
-        view.layer.addSublayer(previewLayer)
+        cameraView.layer.isHidden = false
+        btnCancelFindRoute.layer.isHidden = false
+        
+        cameraView.layer.addSublayer(previewLayer)
         
         captureSession.startRunning()
     }
     
     
     @IBAction func saveDestination(_ sender: Any) {
-        
         if (txtDestinationDescription.text == nil || txtDestinationDescription.text == "") {
             let alert = UIAlertController(title: "Destination Not Saved", message: "You must first enter a destination description.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
@@ -102,7 +114,6 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let entity = NSEntityDescription.entity(forEntityName: "DestinationEntity", in: context)
         let newDestination = NSManagedObject(entity: entity!, insertInto: context)
         
-        
         newDestination.setValue(txtDestinationDescription.text, forKey: "destination_description")
         newDestination.setValue(destinationLat, forKey: "latitude")
         newDestination.setValue(destinationLng, forKey: "longitude")
@@ -112,6 +123,18 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
          } catch {
           print("Error saving")
         }
+    }
+    
+    @IBAction func cancelFindRoute(_ sender: Any) {
+        print("Cickled 1")
+        
+        captureSession.stopRunning()
+        cameraView.layer.sublayers?.removeLast()
+        dismiss(animated: true)
+        
+        btnCancelFindRoute.isHidden = true
+        cameraView.isHidden = true
+        print("Clicked 2")
     }
     
     
@@ -235,7 +258,7 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()
-        view.layer.sublayers?.removeLast()
+        cameraView.layer.sublayers?.removeLast()
 
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
@@ -245,21 +268,19 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             
             txtDestinationDescription.isUserInteractionEnabled = true
             btnSaveDestination.isUserInteractionEnabled = true
+            
+            btnCancelFindRoute.layer.isHidden = true
+            cameraView.layer.isHidden = true
         }
 
         dismiss(animated: true)
     }
 
     func found(code: String) {
-        readedAddress = code
-        
-        let dest : Array = readedAddress.components(separatedBy: " ")
+        let dest : Array = code.components(separatedBy: " ")
         let destLat : Double = Double(dest[0]) ?? 0.0
         let destLng : Double = Double(dest[1]) ?? 0.0
         
         drawRoute(destinationLatitude: destLat, destinationLongitude: destLng)
-        
-        
-        
     }
 }
