@@ -101,10 +101,7 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     @IBAction func saveDestination(_ sender: Any) {
         if (txtDestinationDescription.text == nil || txtDestinationDescription.text == "") {
-            let alert = UIAlertController(title: "Destination Not Saved", message: "You must first enter a destination description.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
-            self.present(alert, animated: true, completion: nil)
-            
+            self.showAlert(title: "Destination Not Saved", message: "You must first enter a destination description.")
             return
         }
         
@@ -126,15 +123,11 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     @IBAction func cancelFindRoute(_ sender: Any) {
-        print("Cickled 1")
-        
         captureSession.stopRunning()
         cameraView.layer.sublayers?.removeLast()
         dismiss(animated: true)
-        
         btnCancelFindRoute.isHidden = true
         cameraView.isHidden = true
-        print("Clicked 2")
     }
     
     
@@ -208,12 +201,7 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         AF.request(url).responseJSON { (response) in
             guard let data = response.data else {
-                print(response.error ?? "Google api response not success...")
-                
-                let alert = UIAlertController(title: "Response Not Success", message: "Cannot connect Google API.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
-                self.present(alert, animated: true, completion: nil)
-                
+                self.showAlert(title: "Response Not Success", message: response.error?.errorDescription ?? "Cannot Connection Google API")
                 return
             }
             
@@ -232,8 +220,7 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 }
                 
             } catch let error {
-                print("Harita Çizdirilemedi...")
-                print(error.localizedDescription)
+                self.showAlert(title: "Couldn't Draw Path", message: error.localizedDescription)
             }
         }
         
@@ -282,10 +269,7 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             
             txtDestinationDescription.isUserInteractionEnabled = false
             btnSaveDestination.isUserInteractionEnabled = false
-            
-            let alert = UIAlertController(title: "Cannot found address", message: "Not valit coordinates in the QR code.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
-            self.present(alert, animated: true, completion: nil)
+            self.showAlert(title: "Cannot found address", message: "Not valit coordinates in the QR code.")
         } else {
             drawRoute(destinationLatitude: destLat, destinationLongitude: destLng)
         }
@@ -297,5 +281,11 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         btnCancelFindRoute.layer.isHidden = true
         cameraView.layer.isHidden = true
         dismiss(animated: true)
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: "Cannot found address", message: "Not valit coordinates in the QR code.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
