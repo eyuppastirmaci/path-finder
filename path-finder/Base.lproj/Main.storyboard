@@ -113,27 +113,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="GmY-5X-Gvv">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="374"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVU-HG-QJp">
+                                <rect key="frame" x="0.0" y="458" width="414" height="438"/>
+                                <color key="backgroundColor" systemColor="systemCyanColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hnK-Bo-38q"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="GmY-5X-Gvv" firstAttribute="leading" secondItem="hnK-Bo-38q" secondAttribute="leading" id="86q-OV-xLb"/>
-                            <constraint firstItem="GmY-5X-Gvv" firstAttribute="top" secondItem="hnK-Bo-38q" secondAttribute="top" id="BbQ-3c-vE2"/>
-                            <constraint firstItem="hnK-Bo-38q" firstAttribute="trailing" secondItem="GmY-5X-Gvv" secondAttribute="trailing" id="F4b-OH-Qc2"/>
-                            <constraint firstItem="hnK-Bo-38q" firstAttribute="bottom" secondItem="GmY-5X-Gvv" secondAttribute="bottom" id="KaO-Kw-4c0"/>
+                            <constraint firstItem="GmY-5X-Gvv" firstAttribute="leading" secondItem="bpT-zS-QPv" secondAttribute="leading" id="0zb-ro-JdS"/>
+                            <constraint firstAttribute="bottom" secondItem="yVU-HG-QJp" secondAttribute="bottom" id="2QC-D3-u3k"/>
+                            <constraint firstItem="GmY-5X-Gvv" firstAttribute="top" secondItem="hnK-Bo-38q" secondAttribute="top" id="OdF-ro-3JF"/>
+                            <constraint firstAttribute="trailing" secondItem="GmY-5X-Gvv" secondAttribute="trailing" id="XfY-PK-Zda"/>
+                            <constraint firstItem="yVU-HG-QJp" firstAttribute="top" secondItem="hnK-Bo-38q" secondAttribute="top" constant="370" id="apb-ux-3a2"/>
+                            <constraint firstItem="hnK-Bo-38q" firstAttribute="bottom" secondItem="GmY-5X-Gvv" secondAttribute="bottom" constant="400" id="vED-pR-o4d"/>
+                            <constraint firstItem="GmY-5X-Gvv" firstAttribute="trailing" secondItem="yVU-HG-QJp" secondAttribute="trailing" id="x9G-ZV-6k5"/>
+                            <constraint firstItem="GmY-5X-Gvv" firstAttribute="leading" secondItem="yVU-HG-QJp" secondAttribute="leading" id="y7Y-cJ-QJi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="V4Q-dI-DNG"/>
                     <connections>
+                        <outlet property="mapView" destination="yVU-HG-QJp" id="bd9-H8-LiB"/>
                         <outlet property="tvRouteHistory" destination="GmY-5X-Gvv" id="0d2-MB-K2d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qzK-tM-VIL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1206" y="-32"/>
+            <point key="canvasLocation" x="-1207.2463768115942" y="-32.142857142857139"/>
         </scene>
     </scenes>
     <resources>

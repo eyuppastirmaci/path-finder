@@ -8,8 +8,9 @@
 import UIKit
 import CoreData
 
-class AddressHistoryController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AddressHistoryController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     @IBOutlet weak var tvRouteHistory: UITableView!
+    @IBOutlet weak var mapView: UIView!
     
     var destinationModels = [DestinationModel]()
     
@@ -17,6 +18,7 @@ class AddressHistoryController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         
         tvRouteHistory.dataSource = self
+        tvRouteHistory.delegate = self
         
         fetchDestinations()
     }
@@ -30,8 +32,6 @@ class AddressHistoryController: UIViewController, UITableViewDataSource, UITable
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "destination_description") as! String)
-                
                 let destinationDescription: String = data.value(forKey: "destination_description") as! String
                 let latitude: Double = data.value(forKey: "latitude") as! Double
                 let longitude: Double = data.value(forKey: "longitude") as! Double
@@ -55,5 +55,15 @@ class AddressHistoryController: UIViewController, UITableViewDataSource, UITable
         cell.textLabel?.text = destinationModels[indexPath.row].description
         return cell
     }
+    
+   func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
+       let selectedLat = destinationModels[indexPath.row].latitude
+       let selectedLng = destinationModels[indexPath.row].longitude
+       
+       print(selectedLat)
+       print(selectedLng)
+    }
+    
     
 }
