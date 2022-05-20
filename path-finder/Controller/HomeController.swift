@@ -196,6 +196,8 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     func drawRoute(destinationLatitude: Double, destinationLongitude: Double) {
+        hideQRScanner()
+        
         destinationLat = destinationLatitude
         destinationLng = destinationLongitude
         
@@ -243,16 +245,13 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         destinationMarker.map = self.mapView
         
         let camera = GMSCameraPosition(target: sourceMarker.position, zoom: 15)
-        
         mapView.animate(to: camera)
     }
     
     func failed() {
         let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
-        
         present(ac, animated: true)
-        
         captureSession = nil
     }
 
@@ -265,22 +264,34 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
-            
-            txtDestinationDescription.isUserInteractionEnabled = true
-            btnSaveDestination.isUserInteractionEnabled = true
-            
-            btnCancelFindRoute.layer.isHidden = true
-            cameraView.layer.isHidden = true
         }
-
-        dismiss(animated: true)
     }
 
     func found(code: String) {
         let dest : Array = code.components(separatedBy: " ")
-        let destLat : Double = Double(dest[0]) ?? 0.0
-        let destLng : Double = Double(dest[1]) ?? 0.0
-        
-        drawRoute(destinationLatitude: destLat, destinationLongitude: destLng)
+        let destLat : Double = Double(dest[0]) ?? -91.0
+        let destLng : Double = Double(dest[1]) ?? -181.0
+         
+        if (destLat < -90 || destLng < -180 || destLat > 90 || destLng > 90) {
+            hideQRScanner()
+            
+            txtDestinationDescription.isUserInteractionEnabled = false
+            btnSaveDestination.isUserInteractionEnabled = false
+            
+            let alert = UIAlertController(title: "Cannot found address", message: "Not valit coordinates in the QR code.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            drawRoute(destinationLatitude: destLat, destinationLongitude: destLng)
+        }
     }
+    
+    func hideQRScanner() {
+        txtDestinationDescription.isUserInteractionEnabled = true
+        btnSaveDestination.isUserInteractionEnabled = true
+        btnCancelFindRoute.layer.isHidden = true
+        cameraView.layer.isHidden = true
+        dismiss(animated: true)
+    }
+    
 }
