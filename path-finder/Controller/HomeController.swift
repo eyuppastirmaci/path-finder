@@ -209,6 +209,11 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         AF.request(url).responseJSON { (response) in
             guard let data = response.data else {
                 print(response.error ?? "Google api response not success...")
+                
+                let alert = UIAlertController(title: "Response Not Success", message: "Cannot connect Google API.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+                self.present(alert, animated: true, completion: nil)
+                
                 return
             }
             
@@ -293,5 +298,4 @@ class HomeController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         cameraView.layer.isHidden = true
         dismiss(animated: true)
     }
-    
 }
