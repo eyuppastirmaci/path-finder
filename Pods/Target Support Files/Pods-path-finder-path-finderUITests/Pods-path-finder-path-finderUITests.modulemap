@@ -1,0 +1,6 @@
+framework module Pods_path_finder_path_finderUITests {
+  umbrella header "Pods-path-finder-path-finderUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
